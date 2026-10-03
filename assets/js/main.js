@@ -11,13 +11,13 @@
   var lang = (root.getAttribute("lang") || "en").slice(0, 2) === "de" ? "de" : "en";
   var T = {
     en: {
-      pages: { index: ["01", "Index"], about: ["02", "About"], experience: ["03", "Experience"], stack: ["04", "Stack"], contact: ["05", "Contact"] },
+      pages: { index: ["01", "Index"], about: ["02", "About"], experience: ["03", "Experience"], stack: ["04", "Stack"], blog: ["05", "Blog"], contact: ["06", "Contact"] },
       collapse: "Collapse changes", copied: "Copied ", sending: "Deploying message…",
       sent: "✓ Delivered. I'll get back to you soon.", sentToast: "Message delivered",
       failed: "Delivery failed. Please email me directly.", units: ["y", "d", "h", "m", "s"]
     },
     de: {
-      pages: { index: ["01", "Start"], about: ["02", "Über mich"], experience: ["03", "Erfahrung"], stack: ["04", "Stack"], contact: ["05", "Kontakt"] },
+      pages: { index: ["01", "Start"], about: ["02", "Über mich"], experience: ["03", "Erfahrung"], stack: ["04", "Stack"], blog: ["05", "Blog"], contact: ["06", "Kontakt"] },
       collapse: "Änderungen einklappen", copied: "Kopiert: ", sending: "Nachricht wird gesendet…",
       sent: "✓ Zugestellt. Ich melde mich bald bei Ihnen.", sentToast: "Nachricht zugestellt",
       failed: "Senden fehlgeschlagen. Bitte schreiben Sie mir direkt per E-Mail.", units: ["J", "T", "h", "m", "s"]
@@ -38,15 +38,63 @@
     });
   });
 
-  /* ---------- Page curtain transition ---------- */
+  /* ---------- Page transition: tile mosaic ----------
+     A grid of tiles grows from the clicked point (circles opening into squares),
+     with a scattering of accent tiles. The next page starts covered and the
+     tiles shrink away again, radiating from the same point. */
+  var curtain = $(".curtain");
+  var tilesEl = $(".curtain__tiles");
   var curtainName = $(".curtain__name");
   var curtainNum = $(".curtain__num");
+
+  function buildTiles(ox, oy) {
+    if (!tilesEl) return 0;
+    var w = window.innerWidth, h = window.innerHeight;
+    var size = w < 600 ? 64 : 96;
+    var cols = Math.ceil(w / size), rows = Math.ceil(h / size);
+    var cw = w / cols, ch = h / rows;
+    var maxD = 0, k, r, c;
+    // farthest corner from the origin, so the wave always takes the same time
+    [[0, 0], [w, 0], [0, h], [w, h]].forEach(function (p) {
+      maxD = Math.max(maxD, Math.hypot(p[0] - ox, p[1] - oy));
+    });
+    tilesEl.style.setProperty("--cols", cols);
+    tilesEl.style.setProperty("--rows", rows);
+    var frag = document.createDocumentFragment();
+    for (r = 0; r < rows; r++) {
+      for (c = 0; c < cols; c++) {
+        var tile = document.createElement("i");
+        var d = Math.hypot((c + 0.5) * cw - ox, (r + 0.5) * ch - oy) / maxD;
+        tile.style.setProperty("--dl", (d * 0.38).toFixed(3) + "s");
+        if (Math.random() < 0.13) tile.className = "a";
+        frag.appendChild(tile);
+      }
+    }
+    tilesEl.textContent = "";
+    tilesEl.appendChild(frag);
+    return cols * rows;
+  }
+
+  function savedOrigin() {
+    try {
+      var o = JSON.parse(sessionStorage.getItem("js-origin") || "null");
+      if (o) return [o[0] * window.innerWidth, o[1] * window.innerHeight];
+    } catch (err) {}
+    return [window.innerWidth / 2, window.innerHeight / 2];
+  }
+
+  if (root.classList.contains("is-entering")) {
+    var o0 = savedOrigin();
+    buildTiles(o0[0], o0[1]);
+    if (curtain) curtain.classList.add("ready");
+  }
+
   function reveal() {
     if (!root.classList.contains("is-entering")) return;
     requestAnimationFrame(function () {
       root.classList.add("is-revealing");
       root.classList.remove("is-entering");
-      setTimeout(function () { root.classList.remove("is-revealing"); }, 1500);
+      setTimeout(function () { root.classList.remove("is-revealing"); }, 1200);
     });
   }
   if (document.readyState === "complete") setTimeout(reveal, 120);
@@ -71,10 +119,15 @@
     var dest = pageInfo(url.pathname);
     if (curtainName) curtainName.textContent = a.getAttribute("data-label") || dest.name;
     if (curtainNum) curtainNum.textContent = a.getAttribute("data-num") || dest.num;
+    // keyboard activation has no pointer position: start from the link itself
+    var ox = e.clientX, oy = e.clientY;
+    if (!ox && !oy) { var rb = a.getBoundingClientRect(); ox = rb.left + rb.width / 2; oy = rb.top + rb.height / 2; }
+    buildTiles(ox, oy);
+    try { sessionStorage.setItem("js-origin", JSON.stringify([ox / window.innerWidth, oy / window.innerHeight])); } catch (err) {}
     root.classList.remove("menu-open");
+    void tilesEl.offsetWidth; // commit the hidden tiles before animating them in
     root.classList.add("is-leaving");
-    try { sessionStorage.setItem("js-nav", "1"); } catch (err) {}
-    setTimeout(function () { location.href = url.href; }, 840);
+    setTimeout(function () { location.href = url.href; }, 860);
   });
 
   function pageInfo(path) {
@@ -328,9 +381,8 @@
     });
   });
 
-  /* ---------- Contact form ---------- */
-  var form = $("#contact-form");
-  if (form) {
+  /* ---------- AJAX forms (contact + blog notify) via Formspree ---------- */
+  $$("form[data-ajax-form]").forEach(function (form) {
     var status = $(".form__status", form);
     var msg = $("textarea", form);
     var counter = $(".counter", form);
@@ -351,7 +403,7 @@
           form.reset();
           if (counter) counter.textContent = "0 / 2000";
           status.classList.add("ok");
-          status.textContent = T.sent;
+          status.textContent = form.getAttribute("data-success") || T.sent;
           showToast(T.sentToast);
         })
         .catch(function () {
@@ -360,7 +412,7 @@
         })
         .then(function () { btn.disabled = false; });
     });
-  }
+  });
 
   onScroll();
 })();

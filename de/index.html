@@ -38,7 +38,8 @@
   <a class="skip" href="#main">Zum Inhalt springen</a>
 
   <div class="curtain" aria-hidden="true">
-    <div class="curtain__panel"><p class="curtain__label"><span class="curtain__num">01</span><span class="curtain__name">Start</span></p></div>
+    <div class="curtain__tiles"></div>
+    <div class="curtain__label"><span class="curtain__num">01</span><span class="curtain__name">Start</span><span class="curtain__bar"></span></div>
   </div>
 
   <header class="header">
@@ -48,7 +49,7 @@
         <span class="brand__name">Janak Shrestha<small>Staff SRE · Unzer</small></span>
       </a>
       <nav class="nav" aria-label="Hauptnavigation">
-        <a href="index.html" aria-current="page" data-label="Start" data-num="01"><sup>01</sup><span class="roll"><span>Start</span><span aria-hidden="true">Start</span></span></a><a href="about.html" data-label="Über mich" data-num="02"><sup>02</sup><span class="roll"><span>Über mich</span><span aria-hidden="true">Über mich</span></span></a><a href="experience.html" data-label="Erfahrung" data-num="03"><sup>03</sup><span class="roll"><span>Erfahrung</span><span aria-hidden="true">Erfahrung</span></span></a><a href="stack.html" data-label="Stack" data-num="04"><sup>04</sup><span class="roll"><span>Stack</span><span aria-hidden="true">Stack</span></span></a><a href="contact.html" data-label="Kontakt" data-num="05"><sup>05</sup><span class="roll"><span>Kontakt</span><span aria-hidden="true">Kontakt</span></span></a>
+        <a href="index.html" aria-current="page" data-label="Start" data-num="01"><sup>01</sup><span class="roll"><span>Start</span><span aria-hidden="true">Start</span></span></a><a href="about.html" data-label="Über mich" data-num="02"><sup>02</sup><span class="roll"><span>Über mich</span><span aria-hidden="true">Über mich</span></span></a><a href="experience.html" data-label="Erfahrung" data-num="03"><sup>03</sup><span class="roll"><span>Erfahrung</span><span aria-hidden="true">Erfahrung</span></span></a><a href="stack.html" data-label="Stack" data-num="04"><sup>04</sup><span class="roll"><span>Stack</span><span aria-hidden="true">Stack</span></span></a><a href="blog.html" data-label="Blog" data-num="05"><sup>05</sup><span class="roll"><span>Blog</span><span aria-hidden="true">Blog</span></span></a><a href="contact.html" data-label="Kontakt" data-num="06"><sup>06</sup><span class="roll"><span>Kontakt</span><span aria-hidden="true">Kontakt</span></span></a>
       </nav>
       <div class="header__tools">
         <a class="lang-switch" href="../index.html" hreflang="en" data-label="English" data-num="EN" aria-label="Read this page in English"><span>EN</span><span class="on">DE</span></a>
@@ -64,7 +65,7 @@
 
   <div class="drawer" id="drawer">
     <nav aria-label="Mobile Navigation">
-      <a href="index.html" aria-current="page" data-label="Start" data-num="01"><sup>01</sup>Start</a><a href="about.html" data-label="Über mich" data-num="02"><sup>02</sup>Über mich</a><a href="experience.html" data-label="Erfahrung" data-num="03"><sup>03</sup>Erfahrung</a><a href="stack.html" data-label="Stack" data-num="04"><sup>04</sup>Stack</a><a href="contact.html" data-label="Kontakt" data-num="05"><sup>05</sup>Kontakt</a>
+      <a href="index.html" aria-current="page" data-label="Start" data-num="01"><sup>01</sup>Start</a><a href="about.html" data-label="Über mich" data-num="02"><sup>02</sup>Über mich</a><a href="experience.html" data-label="Erfahrung" data-num="03"><sup>03</sup>Erfahrung</a><a href="stack.html" data-label="Stack" data-num="04"><sup>04</sup>Stack</a><a href="blog.html" data-label="Blog" data-num="05"><sup>05</sup>Blog</a><a href="contact.html" data-label="Kontakt" data-num="06"><sup>06</sup>Kontakt</a>
     </nav>
     <div class="drawer__foot mono">
       <span><span class="dot" style="display:inline-block;margin-right:8px"></span>München, Deutschland</span>
@@ -234,9 +235,17 @@
           <span class="mono">04 / Stack</span>
           <div class="index__foot"><div><h3 class="h3">Die Tools</h3><p class="muted">Tools &amp; Zertifizierungen</p></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
         </a>
-        <a href="contact.html" data-label="Kontakt" data-num="05" data-reveal style="--d:.24s">
-          <span class="mono">05 / Kontakt</span>
+        <a href="blog.html" data-label="Blog" data-num="05" data-reveal>
+          <span class="mono">05 / Blog</span>
+          <div class="index__foot"><div><h3 class="h3">Die Notizen</h3><p class="muted">Praxisnotizen, bald online</p></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="contact.html" data-label="Kontakt" data-num="06" data-reveal style="--d:.08s">
+          <span class="mono">06 / Kontakt</span>
           <div class="index__foot"><div><h3 class="h3">Der Pager</h3><p class="muted">Eröffnen Sie ein Ticket bei mir</p></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="../CV/Janak_Shrestha_CV.pdf" download data-reveal style="--d:.16s">
+          <span class="mono">PDF / CV</span>
+          <div class="index__foot"><div><h3 class="h3">Der Lebenslauf</h3><p class="muted">Vollständiger CV (Englisch)</p></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
         </a>
       </nav>
     </section>
@@ -247,7 +256,7 @@
     <div class="wrap">
       <div class="footer__cta">
         <h2 class="display split">Damit alles <em>läuft.</em></h2>
-        <a class="btn btn--solid" href="contact.html" data-label="Kontakt" data-num="05">Ticket eröffnen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--solid" href="contact.html" data-label="Kontakt" data-num="06">Ticket eröffnen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="footer__grid">
         <div>
@@ -262,7 +271,8 @@
             <li><a class="link" href="about.html" data-label="Über mich" data-num="02">Über mich</a></li>
             <li><a class="link" href="experience.html" data-label="Erfahrung" data-num="03">Erfahrung</a></li>
             <li><a class="link" href="stack.html" data-label="Stack" data-num="04">Stack</a></li>
-            <li><a class="link" href="contact.html" data-label="Kontakt" data-num="05">Kontakt</a></li>
+            <li><a class="link" href="blog.html" data-label="Blog" data-num="05">Blog</a></li>
+            <li><a class="link" href="contact.html" data-label="Kontakt" data-num="06">Kontakt</a></li>
           </ul>
         </div>
         <div>
