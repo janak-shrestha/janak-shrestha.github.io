@@ -4,7 +4,7 @@ import { localePath } from "@/i18n/config";
 import { pageMetadata } from "@/i18n/metadata";
 import { person } from "@/content/shared";
 import Split from "@/components/Split";
-import { TLink } from "@/components/transition";
+import Link from "next/link";
 import { CareerCounter, HeroSwap } from "@/components/widgets";
 import { Arrow } from "@/components/icons";
 import photo from "../../../public/images/profile.jpeg";
@@ -46,9 +46,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           <div className="hero__intro">
             <p className="lead" data-reveal style={{ ["--d" as string]: ".3s" }}>{t.intro}</p>
             <div className="hero__ctas" data-reveal style={{ ["--d" as string]: ".4s" }}>
-              <TLink className="btn btn--solid" href={localePath(locale, "experience")}>
+              <Link className="btn btn--solid" href={localePath(locale, "experience")}>
                 {t.ctaPrimary} <Arrow />
-              </TLink>
+              </Link>
               <a className="btn btn--ghost" href={person.cv} download>
                 {t.ctaCv}
               </a>
@@ -166,7 +166,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
         <nav className="index" aria-label={t.index.aria}>
           {cards.map((c, i) => (
-            <TLink key={c.slug} href={localePath(locale, c.slug)} data-reveal style={{ ["--d" as string]: `${(i % 3) * 0.08}s` }}>
+            <Link key={c.slug} href={localePath(locale, c.slug)} data-reveal style={{ ["--d" as string]: `${(i % 3) * 0.08}s` }}>
               <span className="mono">
                 {c.num} / {nav[c.slug]}
               </span>
@@ -177,7 +177,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 </div>
                 <Arrow />
               </div>
-            </TLink>
+            </Link>
           ))}
           <a href={person.cv} download data-reveal style={{ ["--d" as string]: ".16s" }}>
             <span className="mono">PDF / CV</span>

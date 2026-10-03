@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { localePath, pages, parsePath, type Locale } from "@/i18n/config";
-import { TLink } from "./transition";
+import Link from "next/link";
 
 type Labels = {
   nav: Record<string, string>;
@@ -22,10 +22,10 @@ function LangSwitch({ locale, label }: { locale: Locale; label: string }) {
   const other: Locale = locale === "en" ? "de" : "en";
   const { slug } = parsePath(pathname);
   return (
-    <TLink className="lang-switch" href={localePath(other, slug)} hrefLang={other} aria-label={label}>
+    <Link className="lang-switch" href={localePath(other, slug)} hrefLang={other} aria-label={label}>
       <span className={locale === "en" ? "on" : undefined}>EN</span>
       <span className={locale === "de" ? "on" : undefined}>DE</span>
-    </TLink>
+    </Link>
   );
 }
 
@@ -86,21 +86,21 @@ export default function Header({ locale, labels }: { locale: Locale; labels: Lab
     <>
       <header className="header">
         <div className="wrap header__inner">
-          <TLink className="brand" href={localePath(locale)} aria-label={labels.brandAria}>
+          <Link className="brand" href={localePath(locale)} aria-label={labels.brandAria}>
             <span className="brand__mark">js</span>
             <span className="brand__name">
               Janak Shrestha<small>{labels.brandRole}</small>
             </span>
-          </TLink>
+          </Link>
           <nav className="nav" aria-label={labels.navAria}>
             {links.map((l) => (
-              <TLink key={l.slug} href={l.href} aria-current={l.current ? "page" : undefined}>
+              <Link key={l.slug} href={l.href} aria-current={l.current ? "page" : undefined}>
                 <sup>{l.num}</sup>
                 <span className="roll">
                   <span>{l.name}</span>
                   <span aria-hidden="true">{l.name}</span>
                 </span>
-              </TLink>
+              </Link>
             ))}
           </nav>
           <div className="header__tools">
@@ -126,10 +126,10 @@ export default function Header({ locale, labels }: { locale: Locale; labels: Lab
       <div className="drawer" id="drawer">
         <nav aria-label={labels.mobileNav}>
           {links.map((l) => (
-            <TLink key={l.slug} href={l.href} aria-current={l.current ? "page" : undefined}>
+            <Link key={l.slug} href={l.href} aria-current={l.current ? "page" : undefined}>
               <sup>{l.num}</sup>
               {l.name}
-            </TLink>
+            </Link>
           ))}
         </nav>
         <div className="drawer__foot mono">

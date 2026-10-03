@@ -2,7 +2,7 @@ import { lang } from "next/root-params";
 import { hasLocale, localePath, defaultLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import Split from "@/components/Split";
-import { TLink } from "@/components/transition";
+import Link from "next/link";
 import { Arrow } from "@/components/icons";
 
 /** Rendered for unknown URLs (via the catch-all route) inside the normal layout. */
@@ -21,12 +21,12 @@ export default async function NotFound() {
         </Split>
         <p className="lead" data-reveal>{t.text}</p>
         <div className="btn-row btn-row--center" data-reveal>
-          <TLink className="btn btn--solid" href={localePath(locale)}>
+          <Link className="btn btn--solid" href={localePath(locale)}>
             {t.home} <Arrow />
-          </TLink>
-          <TLink className="btn btn--ghost" href={localePath(locale, "contact")}>
+          </Link>
+          <Link className="btn btn--ghost" href={localePath(locale, "contact")}>
             {t.report}
-          </TLink>
+          </Link>
         </div>
       </div>
     </section>

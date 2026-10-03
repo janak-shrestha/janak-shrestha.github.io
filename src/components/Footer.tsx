@@ -2,7 +2,7 @@ import { localePath, pages, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/content/en";
 import { person, socials } from "@/content/shared";
 import Split from "./Split";
-import { TLink } from "./transition";
+import Link from "next/link";
 import { HideOnContact, UptimeClock } from "./widgets";
 import { Arrow } from "./icons";
 
@@ -14,9 +14,9 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
         <HideOnContact>
           <div className="footer__cta">
             <Split as="h2" className="display">{ui.ctaHeading}</Split>
-            <TLink className="btn btn--solid" href={localePath(locale, "contact")}>
+            <Link className="btn btn--solid" href={localePath(locale, "contact")}>
               {ui.ctaButton} <Arrow />
-            </TLink>
+            </Link>
           </div>
         </HideOnContact>
         <div className="footer__grid">
@@ -35,9 +35,9 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
             <ul>
               {pages.map((slug) => (
                 <li key={slug}>
-                  <TLink className="link" href={localePath(locale, slug)}>
+                  <Link className="link" href={localePath(locale, slug)}>
                     {dict.nav[slug]}
-                  </TLink>
+                  </Link>
                 </li>
               ))}
             </ul>

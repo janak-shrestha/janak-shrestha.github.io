@@ -5,7 +5,6 @@ import { getDictionary } from "@/i18n/dictionaries";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Effects from "@/components/Effects";
-import { TransitionProvider } from "@/components/transition";
 import { ToastProvider } from "@/components/widgets";
 import "../globals.css";
 
@@ -55,25 +54,23 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {ui.skip}
         </a>
         <ToastProvider>
-          <TransitionProvider>
-            <Header
-              locale={locale}
-              labels={{
-                nav: dict.nav,
-                brandAria: ui.brandAria,
-                brandRole: ui.brandRole,
-                navAria: ui.navAria,
-                mobileNav: ui.mobileNav,
-                themeToggle: ui.themeToggle,
-                openMenu: ui.openMenu,
-                switchAria: ui.switchAria,
-                city: ui.city,
-              }}
-            />
-            <main id="main">{children}</main>
-            <Footer locale={locale} dict={dict} />
-            <Effects />
-          </TransitionProvider>
+          <Header
+            locale={locale}
+            labels={{
+              nav: dict.nav,
+              brandAria: ui.brandAria,
+              brandRole: ui.brandRole,
+              navAria: ui.navAria,
+              mobileNav: ui.mobileNav,
+              themeToggle: ui.themeToggle,
+              openMenu: ui.openMenu,
+              switchAria: ui.switchAria,
+              city: ui.city,
+            }}
+          />
+          <main id="main">{children}</main>
+          <Footer locale={locale} dict={dict} />
+          <Effects />
         </ToastProvider>
       </body>
     </html>
